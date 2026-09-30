@@ -1154,11 +1154,9 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
                     int roundedMeters = (distanceM / 10) * 10;     /* round to 10m step */
                     displayValue = roundedMeters * 10;              /* → tenths of metre */
                     unit = CombiBAPConstantsNavi.DISTANCETONEXTMANEUVER_DISTANCETONEXTMANEUVER_UNIT_METER;
-                } else if (distanceM < 20000) {
+                } else {
                     displayValue = (distanceM + 50) / 100;          /* tenths of km */
                     unit = CombiBAPConstantsNavi.DISTANCETONEXTMANEUVER_DISTANCETONEXTMANEUVER_UNIT_KILOMETER;
-                } else {
-                    return;                                          /* > 20km: out of BAP range */
                 }
             } else {
                 if (distanceM < imperialUnitThreshold) {
