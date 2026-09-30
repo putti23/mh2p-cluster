@@ -27,7 +27,8 @@
     "mirrorZoomY": 1.0,
     "mirrorPanX": 0.0,
     "mirrorPanY": 0.0,
-    "aaClusterMode": "h264"
+    "aaClusterMode": "h264",
+    "carPlayClusterMode": "h264"
   },
   "mirrorCarConfig": {
     "5_3": { "name": "Cayenne E3",  "bargraphMode": "always",   "zoomX": 0.60, "zoomY": 0.70, "panX": 0.02, "panY": 0.02, "aaClusterMode": "h264" },

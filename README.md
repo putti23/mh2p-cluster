@@ -185,6 +185,7 @@ The config file `androidauto_cluster_config.json` is embedded in the JAR. To ove
 | `logFilePath` | string | `/tmp/androidauto_cluster.log` | Plain log file path. |
 | `hashedLogFilePath` | string | `/tmp/androidauto_cluster_hashed.log` | Hashed log file path. |
 | `logFileSize` | int (MB) | `50` | Max file size before deletion and restart. Range: 1–100. |
+| `carPlayClusterMode` | string | `mirror` | `h264` consumes the independent CarPlay stream 111 from `/cluster_h264_shm`; `mirror` clones the PCM screen. |
 
 ### Features
 

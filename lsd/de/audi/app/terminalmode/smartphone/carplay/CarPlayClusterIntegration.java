@@ -72,13 +72,16 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
     private float   mirrorPanX  = 0.0f;
     private float   mirrorPanY  = 0.0f;
     private boolean enableMapRender = false;
-    /* Cluster lifecycle state. CarPlay is mirror-only (no h264 path).
-     * Mirror has no warm state — pause would just kill the child — so we
-     * collapse to IDLE/RENDERING and use start/stop on the wire only.
+    private String  carPlayClusterMode = "mirror";
+    /* "h264" consumes the independent CarPlay ScreenAlt/stream-111 feed
+     * published to /cluster_h264_shm. "mirror" retains the old clone path.
+     * The H.264 child stays warm across screen ownership changes.
      *   IDLE      — no carplay screen, nothing on cluster.
      *   RENDERING — mirror child running on cluster. */
     private static final int CL_IDLE      = 0;
+    private static final int CL_PREPARED  = 1;
     private static final int CL_RENDERING = 2;
+    private static final int CL_PAUSED    = 3;
     private int clusterState = CL_IDLE;
 
     /* Logging config */
@@ -249,6 +252,8 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
             mirrorZoomY = parseFloat(json, "mirrorZoomY", configStart, mirrorZoomY);
             mirrorPanX = parseFloat(json, "mirrorPanX", configStart, mirrorPanX);
             mirrorPanY = parseFloat(json, "mirrorPanY", configStart, mirrorPanY);
+            carPlayClusterMode = parseString(json, "carPlayClusterMode", configStart,
+                                             carPlayClusterMode);
 
             /* BAP / cluster */
             maneuverStateMask = parseInt(json, "maneuverStateMask", configStart, 0);
@@ -330,6 +335,7 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
             }
 
             logCluster("CONFIG: mapRender=" + enableMapRender + " mode=" + mirrorMode
+                       + " carPlayClusterMode=" + carPlayClusterMode
                        + " zoomX=" + mirrorZoomX + " zoomY=" + mirrorZoomY
                        + " imperial=" + forceImperial + " bargraph=" + bargraphMode
                        + " heartbeat=" + enableHeartbeat + "/" + heartbeatInterval
@@ -803,12 +809,25 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
             logCluster("DSI_IN: CARPLAY_SCREEN owner=DEVICE -- CarPlay active");
 
             if (enableMapRender) {
-                String cmd = "start mode=" + mirrorMode
-                           + " zoomX=" + mirrorZoomX + " zoomY=" + mirrorZoomY
-                           + " panX=" + mirrorPanX + " panY=" + mirrorPanY;
-                logCluster("CLUSTER mirror (CarPlay): start -- " + cmd);
-                sendMirrorCommand(cmd);
-                clusterState = CL_RENDERING;
+                if ("h264".equalsIgnoreCase(carPlayClusterMode)) {
+                    if (clusterState == CL_IDLE) {
+                        logCluster("CLUSTER h264/111 (CarPlay): IDLE -> PREPARED -> RENDERING");
+                        sendMirrorCommand("prepare capture=h264");
+                        clusterState = CL_PREPARED;
+                    } else {
+                        logCluster("CLUSTER h264/111 (CarPlay): state=" + clusterState
+                                   + " -> RENDERING");
+                    }
+                    sendMirrorCommand("resume");
+                    clusterState = CL_RENDERING;
+                } else {
+                    String cmd = "start mode=" + mirrorMode
+                               + " zoomX=" + mirrorZoomX + " zoomY=" + mirrorZoomY
+                               + " panX=" + mirrorPanX + " panY=" + mirrorPanY;
+                    logCluster("CLUSTER mirror (CarPlay): start -- " + cmd);
+                    sendMirrorCommand(cmd);
+                    clusterState = CL_RENDERING;
+                }
             }
 
         } else if (owner == RESOURCEOWNER_MAINUNIT && carplayHasScreen) {
@@ -816,9 +835,15 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
             logCluster("DSI_IN: CARPLAY_SCREEN owner=MAINUNIT -- CarPlay inactive");
 
             if (enableMapRender && clusterState == CL_RENDERING) {
-                logCluster("CLUSTER mirror (CarPlay): RENDERING → IDLE (stop)");
-                sendMirrorCommand("stop");
-                clusterState = CL_IDLE;
+                if ("h264".equalsIgnoreCase(carPlayClusterMode)) {
+                    logCluster("CLUSTER h264/111 (CarPlay): RENDERING -> PAUSED");
+                    sendMirrorCommand("pause");
+                    clusterState = CL_PAUSED;
+                } else {
+                    logCluster("CLUSTER mirror (CarPlay): RENDERING -> IDLE (stop)");
+                    sendMirrorCommand("stop");
+                    clusterState = CL_IDLE;
+                }
             }
         }
     }
@@ -835,12 +860,12 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
      */
     public void onCarplayTerminated() {
         try {
-            logCluster("SYS: CARPLAY_TERMINATED - stopping mirror and resetting state");
+            logCluster("SYS: CARPLAY_TERMINATED - stopping cluster renderer and resetting state");
 
             // Send stop if anything is running or paused, to clear the daemon's
             // child reliably across teardown paths.
             if (enableMapRender && clusterState != CL_IDLE) {
-                logCluster("CLUSTER mirror (CarPlay): stopping (terminated)");
+                logCluster("CLUSTER " + carPlayClusterMode + " (CarPlay): stopping (terminated)");
                 sendMirrorCommand("stop");
             }
             carplayHasScreen = false;
