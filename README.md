@@ -292,4 +292,3 @@ Testing compatibility across Porsche Cayenne, Macan, Panamera and 911.
 ---
 
 *Not affiliated with Porsche, Volkswagen, Audi, or Google. This software is free and not for commercial use.*
-
