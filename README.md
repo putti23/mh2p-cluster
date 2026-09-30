@@ -88,7 +88,7 @@ Maps Android Auto `eventCode` (1–19) + `turnSide` + `angle` + `num` to a BAP m
 1. **Throttle check** — minimum ms between sends per proximity zone (veryFar=2000ms  to now=100ms). In "always" bargraph mode, bargraph-only updates bypass the throttle.
 2. **Maneuver change detection** — key = `road|eventCode|turnSide`. New maneuver resets baseline distance and bypasses throttle for first update.
 3. **Distance threshold** — minimum change required per zone (100m at veryFar  to 5m at now) before text updates. Bargraph always updates for smooth fill.
-4. **Unit conversion** — metric: m below 100m, tenths of km to 19.9km. Imperial: yards below 161m, tenths of miles to 9.9mi.
+4. **Unit conversion** — metric: m below 100m, then tenths of km (including long motorway legs). Imperial: yards below 161m, tenths of miles to 9.9mi, then whole miles.
 5. **Bargraph** — `(1 − distance/maneuverInitialDistance) × 100`, clamped 0–100.
 6. **Roundabout traversal** — force distance/bargraph to 0 during CONTINUE events to suppress erratic display inside roundabout.
 
@@ -292,3 +292,4 @@ Testing compatibility across Porsche Cayenne, Macan, Panamera and 911.
 ---
 
 *Not affiliated with Porsche, Volkswagen, Audi, or Google. This software is free and not for commercial use.*
+
