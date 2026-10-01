@@ -5,15 +5,19 @@ fixed maneuver distances at/above 20 km. Phone video/mirroring is disabled for
 CarPlay and Android Auto, even if an old external config enables it.
 No experimental stream111 or diagnostic code is included.
 
-- [INSTALL 2.0](releases/v2.0/MH2P_Cluster_v2.0_INSTALL.zip)
-- [RESTORE 2.0](releases/v2.0/MH2P_Cluster_v2.0_RESTORE.zip) — reinstalls 2.0, not factory uninstall
+- [INSTALL 2.0 — repaired installer r2](releases/v2.0-r2/MH2P_Cluster_v2.0_r2_INSTALL.zip)
+- [RESTORE 2.0 — repaired installer r2](releases/v2.0-r2/MH2P_Cluster_v2.0_r2_RESTORE.zip) — reinstalls 2.0, not factory uninstall
 - [Polish instructions](packaging/v2/README_PL.md)
-- [Checksums](releases/v2.0/SHA256SUMS.txt) / [exact patch manifest](releases/v2.0/MANIFEST_V2.json)
+- [Checksums r2](releases/v2.0-r2/SHA256SUMS.txt) / [unchanged module manifest](releases/v2.0/MANIFEST_V2.json)
 - [Changelog and version policy](CHANGELOG.md): next changes are 2.1, 2.2, etc.
 
 Default logo label: `(c) fifthBro v2.0`. Built reproducibly from pinned upstream
 artifacts with audited bytecode and same-length label patches; this is not a
 claim of a full SDK rebuild. Vehicle validation is still required.
+
+**Original v2.0 installer withdrawn:** it required `cmp`, absent on this PCM.
+[Installer r2](packaging/v2/INSTALLER_R2.md) bundles a static QNX verifier, tests it
+before writes and checks the final payload. The functional 2.0 baseline is unchanged.
 
 **Finish/remove any running diagnostic test before installing 2.0.** The current
 v0.18 card remains unchanged. Only after 2.0 installation can it be the vehicle's
