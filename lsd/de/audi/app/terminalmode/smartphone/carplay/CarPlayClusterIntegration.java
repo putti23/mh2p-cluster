@@ -242,7 +242,9 @@ public class CarPlayClusterIntegration implements DSICarplayListener {
             logFileSize = parseInt(json, "logFileSize", configStart, 50);
 
             /* Mirror */
-            enableMapRender = parseBoolean(json, "enableMapRender", configStart, false);
+            // v2.0 stable baseline: native cluster map, CarPlay BAP guidance only.
+            // Deliberately ignore old USB/SD configuration enabling mirroring.
+            enableMapRender = false;
             mirrorFifo = parseString(json, "mirrorFifo", configStart, mirrorFifo);
             mirrorMode = parseString(json, "mirrorMode", configStart, mirrorMode);
             mirrorZoomX = parseFloat(json, "mirrorZoomX", configStart, mirrorZoomX);

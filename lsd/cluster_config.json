@@ -20,7 +20,7 @@
     "imperialUnitThreshold": 161,
     "imperialSmallUnit": "auto",
     "destinationDisplayDuration": 5000,
-    "enableMapRender": true,
+    "enableMapRender": false,
     "mirrorFifo": "/tmp/cluster_ctl",
     "mirrorMode": "fill",
     "mirrorZoomX": 1.0,

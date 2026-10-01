@@ -1,0 +1,80 @@
+{
+  "version": "2.0",
+  "rollback_baseline": "2.0",
+  "base_sha256": "9211f5bdca37e246cc8dceb02a91121c54fa78623f94aa4c395afad1035bdb23",
+  "classes": {
+    "de/audi/app/terminalmode/smartphone/androidauto2/nav/AndroidAutoClusterIntegration.class": {
+      "before": "3e01bf2e60b6c0c2e25ca096b0d53ca8f192323886890655ad3cd60a42325bf1",
+      "after": "17a3fbe20e1ce6ea30169ef3fe6e41539947ac28ad582085ee495dfabf95beb1",
+      "edits": [
+        [
+          "resolveCarConfig",
+          856,
+          "map-render read -> false"
+        ],
+        [
+          "updateNavigationNextTurnDistance",
+          749,
+          "20km-limit -> Integer.MAX_VALUE"
+        ],
+        [
+          "onAndroidAutoTerminated",
+          31,
+          "map-render read -> false"
+        ],
+        [
+          "videoAvailable",
+          40,
+          "map-render read -> false"
+        ],
+        [
+          "onAndroidAutoActivated",
+          38,
+          "map-render read -> false"
+        ]
+      ]
+    },
+    "de/audi/app/terminalmode/smartphone/carplay/CarPlayClusterIntegration.class": {
+      "before": "9c36afbb8c7b573129647e90254a6eaa9d9b6e3e6c4ea8a39ee598edfb2d40be",
+      "after": "e079141866d0636519e383f5074ff34b5fb5425a3d751d67b424af494d1de6cd",
+      "edits": [
+        [
+          "loadConfig",
+          1024,
+          "map-render read -> false"
+        ],
+        [
+          "handleScreenOwnerChange",
+          25,
+          "map-render read -> false"
+        ],
+        [
+          "handleScreenOwnerChange",
+          167,
+          "map-render read -> false"
+        ],
+        [
+          "onCarplayTerminated",
+          8,
+          "map-render read -> false"
+        ],
+        [
+          "updateDistance",
+          369,
+          "20km-limit -> Integer.MAX_VALUE"
+        ]
+      ]
+    }
+  },
+  "payload_sha256": {
+    "Mods/ClusterIntegration/Update/cluster": "f70a01836dc1c4e536f0c4c3f044a6c23a79fbc220eb79fc4d3eec89101d42d3",
+    "Mods/ClusterIntegration/Update/cluster_config.json": "336ecdc05679dea9dfd31704cf1309634ea6b098a1909c3df8f9eda1a0f8a524",
+    "Mods/ClusterIntegration/Update/install.sh": "fa604978ec8d40d4ef408e191055ea4188cea83ade769bfb943fd9eb0719db72",
+    "Mods/ClusterIntegration/Update/uninstall.sh": "fa604978ec8d40d4ef408e191055ea4188cea83ade769bfb943fd9eb0719db72",
+    "Mods/ClusterIntegration/Update/ClusterIntegration_v2.0.jar": "fe0e28bb19d5c934dbd66bfc406587027721fba3481dc553ed7b275c28a63747",
+    "README_V2_PL.md": "b16bbaf9b950dfcbf1c6c898795b9ad3d229105b546fc1b4a74107198bb783a9",
+    "Mods/ClusterIntegration/README.md": "b16bbaf9b950dfcbf1c6c898795b9ad3d229105b546fc1b4a74107198bb783a9",
+    "Mods/ClusterIntegration/Update/README.md": "b16bbaf9b950dfcbf1c6c898795b9ad3d229105b546fc1b4a74107198bb783a9",
+    "Mods/ClusterIntegration/Update/VERSION": "d526eb4e878a23ef26ae190031b4efd2d58ed66789ac049ea3dbaf74c9df7402"
+  }
+}

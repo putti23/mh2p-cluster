@@ -3225,7 +3225,7 @@ int run_idle_logo(int argc, char **argv, int default_duration_s) {
     int xres = DISP_W, yres = DISP_H;
     int duration_s = (int)get_arg_f(argc, argv, "duration_s", (float)default_duration_s);
     int blank = (int)get_arg_f(argc, argv, "blank", 0.0f);
-    const char* line1 = get_arg_s(argc, argv, "line1", "(c) 2026 fifthBro");
+    const char* line1 = get_arg_s(argc, argv, "line1", "(c) fifthBro v2.0");
     const char* line2 = get_arg_s(argc, argv, "line2", "fifthbro.github.io");
 
     LOG("idle_logo: %dx%d duration_s=%d line1='%s' line2='%s'\n",

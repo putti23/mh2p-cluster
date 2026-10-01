@@ -1,3 +1,29 @@
+# Cluster 2.0 — putti23 native-map release
+
+**2.0 is the rollback baseline.** Native cluster map, CarPlay turn-by-turn,
+fixed maneuver distances at/above 20 km. Phone video/mirroring is disabled for
+CarPlay and Android Auto, even if an old external config enables it.
+No experimental stream111 or diagnostic code is included.
+
+- [INSTALL 2.0](releases/v2.0/MH2P_Cluster_v2.0_INSTALL.zip)
+- [RESTORE 2.0](releases/v2.0/MH2P_Cluster_v2.0_RESTORE.zip) — reinstalls 2.0, not factory uninstall
+- [Polish instructions](packaging/v2/README_PL.md)
+- [Checksums](releases/v2.0/SHA256SUMS.txt) / [exact patch manifest](releases/v2.0/MANIFEST_V2.json)
+- [Changelog and version policy](CHANGELOG.md): next changes are 2.1, 2.2, etc.
+
+Default logo label: `(c) fifthBro v2.0`. Built reproducibly from pinned upstream
+artifacts with audited bytecode and same-length label patches; this is not a
+claim of a full SDK rebuild. Vehicle validation is still required.
+
+**Finish/remove any running diagnostic test before installing 2.0.** The current
+v0.18 card remains unchanged. Only after 2.0 installation can it be the vehicle's
+baseline. The installer preserves a versioned baseline and prior files.
+
+## Upstream documentation (historical)
+
+The video/mirroring features described below are upstream capabilities and are
+DISABLED in this fork's 2.0 profile. Copyright remains with fifthBro.
+
 # Android Auto and CarPlay Cluster Integration
 
 Bridge Android Auto navigation from Porsche PCM5 / ~~VW / Audi~~ MH2P to instrument cluster displays.

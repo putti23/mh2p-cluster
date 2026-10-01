@@ -1663,7 +1663,8 @@ public class AndroidAutoClusterIntegration implements DSIAndroidAuto2ListenerSaf
                 int colonPos = json.indexOf(":", mapRenderPos);
                 if (colonPos > 0) {
                     String rest = json.substring(colonPos + 1).trim();
-                    enableMapRender = rest.startsWith("true");
+                    // v2.0 preserves the native cluster map for every phone.
+                    enableMapRender = false;
                 }
             }
 
