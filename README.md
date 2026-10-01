@@ -10,6 +10,7 @@ No experimental stream111 or diagnostic code is included.
 - [Polish instructions](packaging/v2/README_PL.md)
 - [Checksums r2](releases/v2.0-r2/SHA256SUMS.txt) / [unchanged module manifest](releases/v2.0/MANIFEST_V2.json)
 - [Changelog and version policy](CHANGELOG.md): next changes are 2.1, 2.2, etc.
+- [FULL UNINSTALL v1](releases/full-uninstall-v1/MH2P_Cluster_FULL_UNINSTALL_v1.zip) — removes the active cluster mod, NOT a restore to 2.0; [read instructions first](packaging/uninstall/README_PL.md).
 
 Default logo label: `(c) fifthBro v2.0`. Built reproducibly from pinned upstream
 artifacts with audited bytecode and same-length label patches; this is not a
